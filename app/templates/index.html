@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Melodify</h2>
+            <p>Your go-to music app to discover and enjoy music</p>
+            <button><a href="#">Start Listening</a></button>
+        </div>
+    </section>
+
+    <!-- Welcome Message for Authenticated User -->
+    <div id="welcome" class="welcome-message hidden"></div>
+    <script>
+        window.onload = function() {
+            const username = "{{ current_user.username if current_user.is_authenticated else '' }}";
+            if (username) {
+                let welcomeMessage = document.getElementById('welcome');
+                welcomeMessage.textContent = "Welcome, " + username + "!";
+                welcomeMessage.classList.remove('hidden');
+                welcomeMessage.classList.add('visible');
+            }
+        };
+    </script>
+{% endblock %}
+
+{% block footer %}
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Melodify. All rights reserved.</p>
+    </footer>
+{% endblock %}

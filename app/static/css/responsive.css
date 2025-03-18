@@ -1,0 +1,33 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2.5em;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+    }
+
+    .features {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    .hero h2 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+}
