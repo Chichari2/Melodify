@@ -3,31 +3,43 @@
 {% block content %}
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Welcome to Melodify</h2>
-            <p>Your go-to music app to discover and enjoy music</p>
-            <button><a href="#">Start Listening</a></button>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="float" style="animation-delay: 0.1s">Discover Your Sound</h1>
+                <p class="float" style="animation-delay: 0.3s">Stream high-quality music with our minimalist player</p>
+                <div class="float" style="animation-delay: 0.5s">
+                    {% if current_user.is_authenticated %}
+                        <a href="/discover" class="btn btn-primary ripple">Start Listening</a>
+                    {% else %}
+                        <a href="/register" class="btn btn-primary ripple">Get Started</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Welcome Message for Authenticated User -->
-    <div id="welcome" class="welcome-message hidden"></div>
-    <script>
-        window.onload = function() {
-            const username = "{{ current_user.username if current_user.is_authenticated else '' }}";
-            if (username) {
-                let welcomeMessage = document.getElementById('welcome');
-                welcomeMessage.textContent = "Welcome, " + username + "!";
-                welcomeMessage.classList.remove('hidden');
-                welcomeMessage.classList.add('visible');
-            }
-        };
-    </script>
-{% endblock %}
-
-{% block footer %}
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Melodify. All rights reserved.</p>
-    </footer>
+    <!-- Featured Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Trending Now</h2>
+            <div class="grid">
+                {% for song in trending_songs %}
+                <div class="card loading-card">
+                    <div class="card-media">
+                        <img src="{{ song.cover_url }}" alt="{{ song.title }}" loading="lazy">
+                        <button class="play-btn floating-play">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M5 3l14 9-14 9V3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ song.title }}</h3>
+                        <p>{{ song.artist }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

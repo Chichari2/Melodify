@@ -1,29 +1,36 @@
-<form method="POST">
-    {{ form.hidden_tag() }}
-    <div>
-        {{ form.email.label }} {{ form.email() }}
-    </div>
-    <div>
-        {{ form.password.label }} {{ form.password() }}
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
-</form>
+{% extends "base.html" %}
 
-<style>
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        cursor: pointer;
-        transition: 0.3s;
-        border-radius: 5px;
-    }
+{% block content %}
+  <div class="container">
+    <div class="login-container">
+      <h2>Login</h2>
 
-    button:hover {
-        background-color: #0056b3;
-    }
-</style>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('auth.login') }}" class="login-form">
+     {{ form.hidden_tag() }}
+
+     <div class="form-group">
+       <label for="email">{{ form.email.label }}</label>
+       {{ form.email(class="form-control") }}
+     </div>
+
+     <div class="form-group">
+       <label for="password">{{ form.password.label }}</label>
+       {{ form.password(class="form-control") }}
+     </div>
+
+     <button type="submit" class="login-btn">Login</button>
+   </form>
+
+    </div>
+  </div>
+{% endblock %}

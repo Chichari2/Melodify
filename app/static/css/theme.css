@@ -1,0 +1,128 @@
+/* ======================
+   THEME SYSTEM
+   ====================== */
+
+/**
+ * Theme transition handling
+ * Applies smooth transitions when changing color modes
+ */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    fill 300ms ease,
+    opacity 300ms ease !important;
+  transition-delay: 0s !important;
+}
+
+/* ======================
+   THEME TOGGLE COMPONENT
+   ====================== */
+
+.theme-toggle-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  z-index: 1000;
+}
+
+.theme-toggle {
+  --size: 2.75rem;
+  --icon-size: 1.4rem;
+
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.65rem;
+  border-radius: 50%;
+  cursor: pointer;
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--primary-50);
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.sun-moon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: transform 0.5s ease;
+}
+
+.sun {
+  transform-origin: center center;
+}
+
+.sun-beams {
+  transform-origin: center center;
+  opacity: 1;
+  transition:
+    transform 0.5s cubic-bezier(0.5, 1.5, 0.75, 1.25),
+    opacity 0.3s ease;
+}
+
+/* ======================
+   DARK MODE SPECIFIC STYLES
+   ====================== */
+
+[data-theme="dark"] {
+  /* Theme toggle adjustments */
+  .theme-toggle {
+    background: var(--gray-800);
+    border-color: var(--gray-700);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .theme-toggle:hover {
+    background: var(--gray-700);
+  }
+
+  /* Sun/moon icon transformations */
+  .sun {
+    transform: scale(1.5);
+  }
+
+  .sun-beams {
+    opacity: 0;
+    transform: rotate(-45deg);
+  }
+}
+
+/* ======================
+   ACCESSIBILITY
+   ====================== */
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .sun-moon,
+  .sun,
+  .sun-beams {
+    transition: none !important;
+  }
+}

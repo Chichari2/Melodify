@@ -15,7 +15,7 @@
         {% endif %}
       {% endwith %}
 
-      <form method="POST" action="{{ url_for('register') }}" class="register-form">
+      <form method="POST" action="{{ url_for('auth.register') }}" class="register-form">
         {{ form.hidden_tag() }}
 
         <div class="form-group">

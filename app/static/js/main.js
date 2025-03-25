@@ -1,23 +1,4 @@
-// main.js
-
 document.addEventListener("DOMContentLoaded", () => {
-    const themeToggleButton = document.getElementById('theme-toggle').querySelector('button');
-
-    const setTheme = (theme) => {
-        document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-        themeToggleButton.innerText = theme === "dark" ? "☀️" : "🌙";  // Update the button text
-    };
-
-    // Load theme from localStorage
-    const currentTheme = localStorage.getItem("theme") || "light";
-    setTheme(currentTheme);
-
-    themeToggleButton.addEventListener("click", () => {
-        const newTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-        setTheme(newTheme);
-    });
-
     // Smooth section animations on scroll
     const features = document.querySelectorAll(".feature");
     const options = { threshold: 0.2 };
@@ -36,5 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
         feature.style.transform = "translateY(50px)";
         feature.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
         observer.observe(feature);
+    });
+
+    // Ripple effect for buttons
+    document.querySelectorAll('.ripple').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-effect');
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     });
 });

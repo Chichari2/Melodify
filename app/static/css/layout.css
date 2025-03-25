@@ -1,86 +1,39 @@
-/* Header */
-header {
-    background-color: var(--primary-color);
-    padding: 15px 50px;
-    border-bottom: 3px solid var(--secondary-color);
-}
-
-header nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+/* Grid System */
+.grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 /* Hero Section */
 .hero {
-    background: var(--primary-color);
-    color: var(--accent-color);
-    text-align: center;
-    padding: 80px 20px;
-    border-bottom: 5px solid var(--secondary-color);
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  padding: var(--space-xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--primary-100) 0%,
+    var(--bg-body) 100%
+  );
 }
 
-.hero h2 {
-    font-size: 4em;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.hero p {
-    font-size: 1.3em;
-    font-weight: 300;
-    margin-bottom: 25px;
+.hero-content {
+  max-width: 600px;
 }
 
 /* Features Section */
 .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 50px 20px;
-    text-align: center;
-    margin: 0 20px;
+  padding: var(--space-xl) 0;
 }
 
-.feature {
-    background-color: var(--accent-color);
-    border: 2px solid #e0e0e0;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.feature h4 {
-    font-size: 1.8em;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.feature p {
-    font-size: 1.1em;
-    font-weight: 300;
-    color: #555;
+.feature-card {
+  padding: var(--space-md);
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
 }
 
 /* Footer */
-footer {
-    background-color: #333;
-    color: var(--accent-color);
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1em;
-}
-
-footer p {
-    margin: 0;
+.footer {
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: var(--space-xl);
 }

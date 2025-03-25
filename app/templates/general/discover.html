@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="discover-page">
+    <div class="container">
+        <h1 class="page-title">Discover Music</h1>
+
+        <!-- Featured Section -->
+        <section class="featured-section">
+            <h2>Trending Now</h2>
+            <div class="song-grid">
+                {% if trending_songs %}
+                    {% for song in trending_songs %}
+                    <div class="song-card loading-card">
+                        <div class="song-cover">
+                            <img src="{{ song.cover_url or url_for('static', filename='img/default-cover.png') }}"
+                                 alt="{{ song.title }}">
+                            <button class="play-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M5 3l14 9-14 9V3z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <h3>{{ song.title }}</h3>
+                            <p>{{ song.artist }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                        </svg>
+                        <p>No trending songs yet</p>
+                        {% if current_user.is_authenticated %}
+                            <a href="/upload" class="btn btn-primary">Upload First Song</a>
+                        {% else %}
+                            <a href="/register" class="btn btn-primary">Join to Contribute</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</section>
+{% endblock %}

@@ -1,61 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melodify - Your Music</title>
+    <title>Melodify - Modern Music Experience</title>
 
-    <!-- Link to stylesheets -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
 
     {% block head %}{% endblock %}
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Melodify</a>
 
-    <!-- Header Section -->
-    <header>
-        <nav>
             <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/features">Features</a></li>
-                <li><a href="/pricing">Pricing</a></li>
-                <li><a href="/contact">Contact</a></li>
-                {% if not current_user.is_authenticated %}
-                    <li id="auth-buttons">
-                        <button onclick="window.location.href='/login'">Login</button>
-                        <button onclick="window.location.href='/register'">Register</button>
-                    </li>
+                <li><a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a></li>
+                <li><a href="/discover" class="nav-link {% if request.path == '/discover' %}active{% endif %}">Discover</a></li>
+                <li><a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="dropdown">
+                    <button class="nav-link dropbtn">
+                        {{ current_user.username }}
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/profile" class="dropdown-link">Profile</a>
+                        <a href="/logout" class="dropdown-link">Logout</a>
+                    </div>
+                </li>
                 {% else %}
-                    <li class="dropdown">
-                        <button class="dropbtn">{{ current_user.username }}</button>
-                        <div class="dropdown-content">
-                            <a href="#">Profile</a>
-                            <a href="/logout">Logout</a>
-                        </div>
-                    </li>
+                <li>
+                    <a href="/login" class="btn btn-outline">Login</a>
+                </li>
+                <li>
+                    <a href="/register" class="btn btn-primary ripple">Register</a>
+                </li>
                 {% endif %}
             </ul>
 
-            <!-- Dark Mode Button in the Top Right Corner -->
-            <div id="theme-toggle" class="theme-toggle">
-                <button onclick="toggleTheme()">🌙</button> <!-- Emoji for light/dark mode -->
+            <div class="theme-toggle-container">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-moon" width="20" height="20" viewBox="0 0 24 24">
+                        <circle class="sun" cx="12" cy="12" r="5" mask="url(#moon)"/>
+                        <g class="sun-beams">
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </g>
+                        <mask id="moon">
+                            <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                            <circle cx="24" cy="10" r="6" fill="black"/>
+                        </mask>
+                    </svg>
+                </button>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <!-- Main Content Section -->
-    <main>
+    <!-- Main Content -->
+    <main class="transition">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2025 Melodify. All rights reserved.</p>
+    <!-- Player (Fixed at bottom) -->
+    <div class="player">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <button class="play-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M5 3l14 9-14 9V3z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Melodify. All rights reserved.</p>
+        </div>
     </footer>
 
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
