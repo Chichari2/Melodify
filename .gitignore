@@ -189,3 +189,5 @@ __pycache__/
 .DS_Store
 .env
 
+app/database/melodify.db
+app/static/img/
