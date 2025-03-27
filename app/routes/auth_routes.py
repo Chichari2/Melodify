@@ -3,8 +3,9 @@ from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from app.models.user import User
-from forms import RegistrationForm, LoginForm
 from urllib.parse import urlparse
+from app.forms.contact_form import ContactForm
+from app.forms import RegistrationForm, LoginForm
 
 
 auth_bp = Blueprint('auth', __name__)
