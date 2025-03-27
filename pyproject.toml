@@ -12,6 +12,7 @@ gunicorn = "^20.0.0"
 python-dotenv = "^1.0.0"
 flask-sqlalchemy = "^3.1.1"
 flask-login = "^0.6.3"
+flask-wtf = "^1.2.1"
 
 [tool.poetry.group.dev.dependencies]
 
