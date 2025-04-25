@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from config import Config
 from app.routes import main_bp
+from app.models import User
 
 # Инициализируем db, login_manager, csrf здесь, но не импортируем напрямую
 db = SQLAlchemy()
