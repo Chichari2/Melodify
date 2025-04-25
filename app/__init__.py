@@ -1,25 +1,25 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from config import Config
 from app.routes import main_bp
 from app.models import User
+from app.extensions import db
 
-# Инициализируем db, login_manager, csrf здесь, но не импортируем напрямую
-db = SQLAlchemy()
 login_manager = LoginManager()
 csrf = CSRFProtect()
 
 
 @login_manager.user_loader
 def load_user(user_id):
+    from app.models import User
     if not user_id:
         return None
     try:
-        return db.session.query(User).get(int(user_id))  # Используем db для загрузки пользователя
+        return db.session.query(User).get(int(user_id))
     except (ValueError, TypeError):
         return None
+
 
 
 def create_app():

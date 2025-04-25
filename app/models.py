@@ -1,4 +1,4 @@
-from app import db  # db теперь доступен через этот импорт
+from app.extensions import db
 
 class User(db.Model):  # db уже инициализирован
     id = db.Column(db.Integer, primary_key=True)
