@@ -31,7 +31,7 @@ def create_app():
     csrf.init_app(app)
 
     with app.app_context():
-        from app import routes, models
+        from app import models
         db.create_all()  # Create database tables if they don't exist
 
     return app
